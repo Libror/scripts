@@ -26,87 +26,81 @@ local moonCrownTP = CFrame.new(3429.53833, 877.11499, -791.205383, -0.0002572363
 local emporerCrownTP = CFrame.new(2615.81909, 940.692444, -653.314453, 0.0555151962, 2.47452947e-09, 0.998457849, 2.01401313e-08, 1, -3.59816177e-09, -0.998457849, 2.03088248e-08, 0.0555151962)
 
 
---Willy V3 GUI by Aika--
+--TwinkLib by twink marie--
 
-local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
+local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
 
-local w = library:CreateWindow("Mic UP GUI") -- Creates the window
+local MainUI = UILibrary.Load("Mic Up GUI")
+local FirstPage = MainUI.AddPage("General", false)
+local SecondPage = MainUI.AddPage("TPs", false)
 
-local b = w:CreateFolder("Controls") -- Creates the folder(U will put here your buttons,etc)
-local t = w:CreateFolder("TPs")
-
---General Menu--
-
-b:Button("Toggle Fly",function()
+FirstPage.AddButton("Toggle Fly", function()
     flytogl()
 end)
 
-b:Bind("Fly Bind",Enum.KeyCode.Y,function() --Default bind
-	flytogl()
-end)
+FirstPage.AddLabel("Press Y to fly")
 
-b:Button("Destroy AFK Script",function()
+FirstPage.AddButton("Destroy AFK script", function()
     toggleAFK()
 end)
 
-b:Box("Specific Speed", "number",function(value) --Default bind
-	specificSpeed = value
+FirstPage.AddSlider("Specific speed", {Min = 0, Max = 250, Def = 100}, function(value)
+    specificSpeed = value
 end)
 
-b:Button("Use specific speed",function() --Default bind
-	humanoid.WalkSpeed = specificSpeed
+FirstPage.AddLabel("Change the slider value once so it updates")
+
+FirstPage.AddButton("Use specific speed", function()
+    humanoid.WalkSpeed = specificSpeed
 end)
 
-b:Button("Default speed",function() --Default bind
-	humanoid.WalkSpeed = 16
+FirstPage.AddButton("Default speed", function()
+    humanoid.WalkSpeed = 16
 end)
 
-b:Button("Faster",function() --Default bind
-	humanoid.WalkSpeed = humanoid.WalkSpeed + 16
+FirstPage.AddButton("Faster", function()
+    humanoid.WalkSpeed = humanoid.WalkSpeed + 16
 end)
 
-b:Button("Slower",function() --Default bind
-	humanoid.WalkSpeed = humanoid.WalkSpeed - 16
+FirstPage.AddButton("Slower", function()
+    humanoid.WalkSpeed = humanoid.WalkSpeed - 16
 end)
 
-b:Button("Restart Game",function() --Default bind
-	p = game:GetService("Players").LocalPlayer
+FirstPage.AddButton("Restart game", function()
+    p = game:GetService("Players").LocalPlayer
 	game:GetService("TeleportService"):Teleport(game.PlaceId, p)
 end)
 
-
---Teleports--
-
-t:Button("Spawn", function()
-	pl.CFrame = spawnTP
+SecondPage.AddButton("Spawn", function()
+    pl.CFrame = spawnTP
 end)
 
-t:Button("VIP", function()
-	pl.CFrame = vipTP
+SecondPage.AddButton("VIP", function()
+    pl.CFrame = vipTP
 end)
 
-t:Button("Top of Building", function()
-	pl.CFrame = buildingTopTP
+SecondPage.AddButton("Top of building", function()
+    pl.CFrame = buildingTopTP
 end)
 
-t:Button("Valkyrie", function()
-	pl.CFrame = valkTP
+SecondPage.AddButton("Valkyrie", function()
+    pl.CFrame = valkTP
 end)
 
-t:Button("Void Crown", function()
-	pl.CFrame = voidCrownTP
+SecondPage.AddButton("Void Crown", function()
+    pl.CFrame = voidCrownTP
 end)
 
-t:Button("Moon Crown", function()
-	pl.CFrame = moonCrownTP
+SecondPage.AddButton("Moon Crown", function()
+    pl.CFrame = moonCrownTP
 end)
 
-t:Button("Emporer Crown", function()
-	pl.CFrame = emporerCrownTP
+SecondPage.AddButton("Emporer Crown", function()
+    pl.CFrame = emporerCrownTP
 end)
 
-t:Button("Black Horns", function()
-	pl.CFrame = blackHornsTP
+SecondPage.AddButton("Black Horns", function()
+    pl.CFrame = blackHornsTP
 end)
 
 --FLY SCRIPT BY RGEENEUS--
@@ -144,6 +138,12 @@ userInputService.InputBegan:Connect(function(input, GPE)
 			buttons.Moving = true
 		end
 	end
+
+	if input.UserInputType == Enum.UserInputType.Keyboard then
+        if input.KeyCode == Enum.KeyCode.Y then
+            flytogl()
+        end
+    end
 end)
 
 game:GetService("UserInputService").InputEnded:connect(function (input, GPE) 
